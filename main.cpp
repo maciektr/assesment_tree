@@ -7,7 +7,9 @@ Node *create_example();
 int main(){
     Node *tree = create_example();
     TreeMetrics metrics;
-    std::cout<< metrics.sum(tree)<<std::endl<<metrics.average(tree)<<std::endl;
+    std::cout<<"Sum: "<<metrics.sum(tree)<<std::endl;
+    std::cout<<"Avg: "<<metrics.average(tree)<<std::endl;
+    std::cout<<"Median: "<<metrics.median(tree)<<std::endl;
 }
 
 Node *create_example(){
