@@ -14,7 +14,7 @@ class TreeMetrics{
         int sum(Node *node);
 
     private:
-        int count_elements(Node *node);
+        int countElements(Node *node);
         void _median(Node *node, std::vector<int> &elements);
         void _merge(std::vector<int> &elements, std::vector<int> &left_elements, std::vector<int> &right_elements, int data);
 

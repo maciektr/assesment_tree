@@ -1,7 +1,8 @@
-#include "TreeMetrics.h"
-#include "Node.h"
-#include "Tree.h"
 #include<iostream> 
+
+#include "TreeMetrics.h"
+#include "Tree.h"
+#include "Node.h"
 
 Node *create_example();
 
@@ -13,7 +14,7 @@ int main(){
     std::cout<<"Median: "<<metrics.median(tree.root)<<std::endl;
 }
 
-Node *create_example(){
+Node *createExample(){
     Node *r = new Node(5, 
                       new Node(3, 
                               new Node(2,nullptr,nullptr), 

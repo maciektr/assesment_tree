@@ -1,15 +1,19 @@
 #include "TreeMetrics.h"
 
 double TreeMetrics::average(Node *node){
-    return (double)TreeMetrics::sum(node) / (double)TreeMetrics::count_elements(node);
+    if(node==nullptr)
+        throw std::invalid_argument("Node pointer cannot be null!");
+
+    return (double)TreeMetrics::sum(node) / (double)TreeMetrics::countElements(node);
+
 }
 
-int TreeMetrics::count_elements(Node *node){
+int TreeMetrics::countElements(Node *node){
     if(node == nullptr)
         return 0;
 
     if(this->mem_count.find(node) == this->mem_count.end())        
-        this->mem_count[node] = (1 + TreeMetrics::count_elements(node->left) + TreeMetrics::count_elements(node->right));
+        this->mem_count[node] = (1 + TreeMetrics::countElements(node->left) + TreeMetrics::countElements(node->right));
 
     return this->mem_count[node];
 }
