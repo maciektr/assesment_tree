@@ -55,21 +55,20 @@ void TreeMetrics::_median(Node *node, TreeMetrics::pque_max &smaller, TreeMetric
     }
 
     if(larger.size() == smaller.size())
-        this->mem_median[node] = (larger.top() + smaller.top())/2; //DOUBLE
+        this->mem_median[node] = (larger.top() + smaller.top());
     else 
-        this->mem_median[node] = larger.top();
+        this->mem_median[node] = 2*larger.top();
 }
 
-int TreeMetrics::median(Node *node){
+double TreeMetrics::median(Node *node){
     if(node==nullptr)
         throw std::invalid_argument("Node pointer cannot be null!");
 
-    if(this->mem_median.find(node) != this->mem_median.end())
-        return this->mem_median[node];
+    if(this->mem_median.find(node) == this->mem_median.end()){
+        TreeMetrics::pque_max smaller; 
+        TreeMetrics::pque_min larger; 
+        _median(node, smaller, larger);
+    }
     
-    TreeMetrics::pque_max smaller; 
-    TreeMetrics::pque_min larger; 
-
-    _median(node, smaller, larger);
-    return this->mem_median[node];
+    return ((double)this->mem_median[node])/2.;
 }

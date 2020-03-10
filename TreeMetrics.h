@@ -9,10 +9,10 @@
 
 class TreeMetrics{
     public:
-        int median(Node *node);
+        double median(Node *node);
         double average(Node *node);
         int sum(Node *node);
-        
+
     private:
         typedef std::priority_queue<int> pque_max;
         typedef std::priority_queue<int, std::vector<int>, std::greater<int> > pque_min;
