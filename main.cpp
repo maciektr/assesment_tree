@@ -1,15 +1,16 @@
 #include "TreeMetrics.h"
 #include "Node.h"
+#include "Tree.h"
 #include<iostream> 
 
 Node *create_example();
 
 int main(){
-    Node *tree = create_example();
+    Tree tree(create_example());
     TreeMetrics metrics;
-    std::cout<<"Sum: "<<metrics.sum(tree)<<std::endl;
-    std::cout<<"Avg: "<<metrics.average(tree)<<std::endl;
-    std::cout<<"Median: "<<metrics.median(tree)<<std::endl;
+    std::cout<<"Sum: "<<metrics.sum(tree.root)<<std::endl;
+    std::cout<<"Avg: "<<metrics.average(tree.root)<<std::endl;
+    std::cout<<"Median: "<<metrics.median(tree.root)<<std::endl;
 }
 
 Node *create_example(){
