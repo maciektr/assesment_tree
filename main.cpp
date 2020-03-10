@@ -4,10 +4,10 @@
 #include "Tree.h"
 #include "Node.h"
 
-Node *create_example();
+Node *createExample();
 
 int main(){
-    Tree tree(create_example());
+    Tree tree(createExample());
     TreeMetrics metrics;
     std::cout<<"Sum: "<<metrics.sum(tree.root)<<std::endl;
     std::cout<<"Avg: "<<metrics.average(tree.root)<<std::endl;
