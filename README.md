@@ -1,4 +1,4 @@
-# Zadanie programistyczne OpenX
+# Zadanie programistyczne 
 
 Wybrałem wariant pierwszy zadania. 
 
