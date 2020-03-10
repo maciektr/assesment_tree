@@ -27,7 +27,7 @@ int TreeMetrics::sum(Node *node){
 void TreeMetrics::_merge(std::vector<int> &elements, std::vector<int> &left_elements, std::vector<int> &right_elements, int data){
     bool data_not_taken = true;
     int l = 0, r = 0;
-    while(left_elements.size() > l && right_elements.size() > r){
+    while((int)left_elements.size() > l && (int)right_elements.size() > r){
         if(data_not_taken && data <= std::min(left_elements[l], right_elements[r])){
             elements.push_back(data);
             data_not_taken = false;
@@ -39,14 +39,14 @@ void TreeMetrics::_merge(std::vector<int> &elements, std::vector<int> &left_elem
             }
         }
     }    
-    while(left_elements.size() > l){
+    while((int)left_elements.size() > l){
         if(data_not_taken && data <= left_elements[l]){
             elements.push_back(data);
             data_not_taken = false;            
         }else
             elements.push_back(left_elements[l++]);
     }
-    while(right_elements.size() > r){
+    while((int)right_elements.size() > r){
         if(data_not_taken && data <= right_elements[r]){
             elements.push_back(data);
             data_not_taken = false;            
@@ -67,13 +67,13 @@ void TreeMetrics::_median(Node *node, std::vector<int> &elements){
 
     std::vector<int> right_elements;
     _median(node->right, right_elements);
-
-    _merge(elements, left_elements, right_elements, node->data);
     
+    _merge(elements, left_elements, right_elements, node->data);
+
     if(elements.size() % 2 == 1)
-        this->mem_median[node] = 2*elements[(elements.size()/2)-1];
+        this->mem_median[node] = 2*elements[(elements.size()/2)];
     else 
-        this->mem_median[node] = elements[(elements.size()/2)-1] + elements[(elements.size()/2)];
+        this->mem_median[node] = elements[(elements.size()/2)] + elements[(elements.size()/2)-1];
 }
 
 double TreeMetrics::median(Node *node){
