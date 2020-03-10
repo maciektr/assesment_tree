@@ -3,6 +3,7 @@
 
 # Executables
 *.o
+*.out
 
 ### VisualStudioCode ###
 .vscode/*
