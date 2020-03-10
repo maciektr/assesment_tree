@@ -24,40 +24,56 @@ int TreeMetrics::sum(Node *node){
     return this->mem_sum[node];
 }
 
-void TreeMetrics::_median(Node *node, TreeMetrics::pque_max &smaller, TreeMetrics::pque_min &larger){
+void TreeMetrics::_merge(std::vector<int> &elements, std::vector<int> &left_elements, std::vector<int> &right_elements, int data){
+    bool data_not_taken = true;
+    int l = 0, r = 0;
+    while(left_elements.size() > l && right_elements.size() > r){
+        if(data_not_taken && data <= std::min(left_elements[l], right_elements[r])){
+            elements.push_back(data);
+            data_not_taken = false;
+        }else{
+            if(left_elements[l] <= right_elements[r]){
+                elements.push_back(left_elements[l++]);
+            }else{
+                elements.push_back(right_elements[r++]);
+            }
+        }
+    }    
+    while(left_elements.size() > l){
+        if(data_not_taken && data <= left_elements[l]){
+            elements.push_back(data);
+            data_not_taken = false;            
+        }else
+            elements.push_back(left_elements[l++]);
+    }
+    while(right_elements.size() > r){
+        if(data_not_taken && data <= right_elements[r]){
+            elements.push_back(data);
+            data_not_taken = false;            
+        }else
+            elements.push_back(right_elements[r++]);
+    }
+    if(data_not_taken)
+        elements.push_back(data);
+
+}
+
+void TreeMetrics::_median(Node *node, std::vector<int> &elements){
     if(node==nullptr)
         return;
 
-    _median(node->left, smaller, larger);
-    TreeMetrics::pque_max right_smaller;
-    TreeMetrics::pque_min right_larger;
-    _median(node->right, right_smaller, right_larger);
-    smaller.push(node->data);
+    std::vector<int> left_elements;
+    _median(node->left, left_elements);
+
+    std::vector<int> right_elements;
+    _median(node->right, right_elements);
+
+    _merge(elements, left_elements, right_elements, node->data);
     
-    while(!right_smaller.empty()){
-        smaller.push(right_smaller.top());
-        right_smaller.pop();
-    }
-
-    while(!smaller.empty() && smaller.size() > larger.size()){
-        larger.push(smaller.top());
-        smaller.pop();
-    }
-
-    while(!right_larger.empty()){
-        smaller.push(right_larger.top());
-        right_larger.pop();
-    }
-
-    while(!smaller.empty() && smaller.size() > larger.size()){
-        larger.push(smaller.top());
-        smaller.pop();
-    }
-
-    if(larger.size() == smaller.size())
-        this->mem_median[node] = (larger.top() + smaller.top());
+    if(elements.size() % 2 == 1)
+        this->mem_median[node] = 2*elements[(elements.size()/2)-1];
     else 
-        this->mem_median[node] = 2*larger.top();
+        this->mem_median[node] = elements[(elements.size()/2)-1] + elements[(elements.size()/2)];
 }
 
 double TreeMetrics::median(Node *node){
@@ -65,9 +81,8 @@ double TreeMetrics::median(Node *node){
         throw std::invalid_argument("Node pointer cannot be null!");
 
     if(this->mem_median.find(node) == this->mem_median.end()){
-        TreeMetrics::pque_max smaller; 
-        TreeMetrics::pque_min larger; 
-        _median(node, smaller, larger);
+        std::vector<int> elements; 
+        _median(node, elements);
     }
     
     return ((double)this->mem_median[node])/2.;

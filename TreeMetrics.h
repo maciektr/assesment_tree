@@ -14,11 +14,9 @@ class TreeMetrics{
         int sum(Node *node);
 
     private:
-        typedef std::priority_queue<int> pque_max;
-        typedef std::priority_queue<int, std::vector<int>, std::greater<int> > pque_min;
-
         int count_elements(Node *node);
-        void _median(Node *node, TreeMetrics::pque_max &smaller, TreeMetrics::pque_min &larger);
+        void _median(Node *node, std::vector<int> &elements);
+        void _merge(std::vector<int> &elements, std::vector<int> &left_elements, std::vector<int> &right_elements, int data);
 
         std::unordered_map<Node *,int> mem_count;
         std::unordered_map<Node *,int> mem_sum;
