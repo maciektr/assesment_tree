@@ -1,11 +1,12 @@
 #ifndef TREE_METRICS_H
 #define TREE_METRICS_H
 
-#include "Node.h"
-#include<unordered_map>
-#include<stack>
+#include <unordered_map>
+#include <stack>
 #include <queue>
 #include <vector>
+
+#include "Node.h"
 
 class TreeMetrics{
     public:
